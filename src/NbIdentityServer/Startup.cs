@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,6 +9,14 @@ namespace NbIdentityServer
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // uncomment, if you want to add an MVC-based UI
+            //services.AddControllersWithViews();
+
+            var builder = services.AddIdentityServer()
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryClients(Config.Clients);
+
+            builder.AddDeveloperSigningCredential();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -19,15 +26,17 @@ namespace NbIdentityServer
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            app.UseIdentityServer();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            //app.UseRouting();
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello World!");
+            //    });
+            //    //endpoints.MapDefaultControllerRoute();
+            //});
         }
     }
 }
