@@ -45,6 +45,20 @@ namespace Demo.Shared
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
                     }
+                },
+                new Client
+                {
+                    ClientId = DemoConst.DemoMvc,
+                    ClientSecrets = { new Secret(DemoConst.Secret.Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RedirectUris = { DemoConst.DemoMvcUri_LoginRedirect },
+                    PostLogoutRedirectUris = { DemoConst.DemoMvcUri_LogoutRedirect },
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        DemoConst.ApiScope1
+                    }
                 }
             };
     }
