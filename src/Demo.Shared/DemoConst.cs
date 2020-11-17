@@ -2,17 +2,21 @@
 {
     public class DemoConst
     {
-        public static string DemoApi_Scope1 = "Scope1";
-        public static string DemoApi_Scope1Title = "Scope1...";
+        //scopes
+        public static string ApiScope1 = "ApiScope1";
+        public static string ApiScope2 = "ApiScope2";
 
-        public static string DemoApi_Scope2 = "Scope2";
-        public static string DemoApi_Scope2Title = "Scope2...";
+        //client ids
+        public static string DemoClient = "DemoClient";
+        public static string DemoApi = "DemoApi";
 
-        public static string DemoClient_Id = "Client1";
-        public static string DemoClient_Secret = "1234";
+        //client secret
+        public static string Secret = "secret";
 
-        public static string IdentityServer_Uri = "https://localhost:44320";
-        public static string DemoApi_Uri_GetUser = "https://localhost:44321/Api/Foo/GetUser";
+        //client uris
+        public static string IdentityServerUri = "https://localhost:44320";
+        public static string DemoApiUri_GetUser = "https://localhost:44321/Api/Foo/GetUser";
+        public static string DemoApiUri_LoginRedirect = "https://localhost:44321/signin-oidc";
+        public static string DemoApiUri_LogoutRedirect = "https://localhost:44321/signout-callback-oidc";
     }
-
 }

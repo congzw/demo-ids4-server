@@ -1,3 +1,4 @@
+using Demo.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +14,8 @@ namespace NbIdentityServer
             //services.AddControllersWithViews();
 
             var builder = services.AddIdentityServer()
-                .AddInMemoryApiScopes(Config.ApiScopes)
-                .AddInMemoryClients(Config.Clients);
+                .AddInMemoryApiScopes(DemoConfig.ApiScopes)
+                .AddInMemoryClients(DemoConfig.Clients);
 
             builder.AddDeveloperSigningCredential();
         }

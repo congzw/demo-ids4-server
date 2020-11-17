@@ -19,7 +19,7 @@ namespace DemoApi
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = DemoConst.IdentityServer_Uri;
+                    options.Authority = DemoConst.IdentityServerUri;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateAudience = false
@@ -29,10 +29,10 @@ namespace DemoApi
             // adds an authorization policy to make sure the token is for scope 'DemoApi'
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("NeedScope1", policy =>
+                options.AddPolicy("NeedApiScope1", policy =>
                 {
                     policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", DemoConst.DemoApi_Scope1);
+                    policy.RequireClaim("scope", DemoConst.ApiScope1);
                 });
             });
         }
@@ -64,7 +64,7 @@ namespace DemoApi
     </li>
 <ul>");
                 });
-                endpoints.MapControllers().RequireAuthorization("NeedScope1");
+                endpoints.MapControllers().RequireAuthorization("NeedApiScope1");
             });
         }
     }
