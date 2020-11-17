@@ -1,10 +1,12 @@
 using System;
+using IdentityServer4;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using NbIdentityServer.Data;
 using NbIdentityServer.Extensions;
 
@@ -65,6 +67,18 @@ namespace NbIdentityServer
                 .AddIdentityServer4Store();
 
             builder.AddDeveloperSigningCredential();
+            
+            services.AddAuthentication()
+                .AddOpenIdConnect("AnotherSSO", "AnotherSSOServer", options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.Authority = "http://localhost:6884";
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    //options.ResponseType = OpenIdConnectResponseType.CodeIdToken;
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.ClientId = "LocalSSO";
+                    options.ClientSecret = "secret";
+                });
 
             //todo: as gateway for 3th sso
             //services.AddAuthentication()
