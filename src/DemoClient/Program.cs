@@ -14,7 +14,7 @@ namespace DemoClient
             // discover endpoints from metadata
             var client = new HttpClient();
 
-            var identityServerUri = DemoConst.IdentityServer_Uri;
+            var identityServerUri = DemoConst.IdentityServerUri;
             var disco = await client.GetDiscoveryDocumentAsync(identityServerUri);
             if (disco.IsError)
             {
@@ -26,9 +26,9 @@ namespace DemoClient
             var tokenResponse = await client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = disco.TokenEndpoint,
-                ClientId = DemoConst.DemoClient_Id,
-                ClientSecret = DemoConst.DemoClient_Secret,
-                Scope = DemoConst.DemoApi_Scope1
+                ClientId = DemoConst.DemoClient,
+                ClientSecret = DemoConst.Secret,
+                Scope = DemoConst.ApiScope1
             });
 
             if (tokenResponse.IsError)
@@ -43,7 +43,7 @@ namespace DemoClient
             // call api
             var apiClient = new HttpClient();
             apiClient.SetBearerToken(tokenResponse.AccessToken);
-            var response = await apiClient.GetAsync(DemoConst.DemoApi_Uri_GetUser);
+            var response = await apiClient.GetAsync(DemoConst.DemoApiUri_GetUser);
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
